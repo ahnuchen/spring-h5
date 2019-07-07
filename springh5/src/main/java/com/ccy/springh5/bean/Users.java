@@ -1,6 +1,6 @@
 package com.ccy.springh5.bean;
 
-public class User {
+public class Users {
   private String name;
   private String loginId;
 

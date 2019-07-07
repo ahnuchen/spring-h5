@@ -1,20 +1,15 @@
 package com.ccy.springh5;
 
-import com.ccy.springh5.bean.User;
-import com.ccy.springh5.bean.UserInfo;
-import com.ccy.springh5.dao.UserDao;
-import com.ccy.springh5.dao.UserInfoDao;
+import com.ccy.springh5.bean.Users;
+import com.ccy.springh5.dao.UsersDao;
 import com.ccy.springh5.dao.impl.BaseDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @SpringBootApplication
@@ -31,11 +26,11 @@ public class Springh5Application {
 
   }
   @Autowired
-  private UserDao userDao;
+  private UsersDao userDao;
 
   @RequestMapping("/all")
-  public List<User> index () {
-    List<User> users = userDao.findAll();
+  public List<Users> index () {
+    List<Users> users = userDao.findAll();
     return users;
   }
 
