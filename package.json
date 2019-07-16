@@ -2,7 +2,7 @@
   "name": "h5maker",
   "version": "1.0.0",
   "description": "h5编辑器",
-  "author": "郑国榕 <zgr380420472@qq.com>",
+  "author": "ccy <1292572728@qq.com>",
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node ./bin/www",
