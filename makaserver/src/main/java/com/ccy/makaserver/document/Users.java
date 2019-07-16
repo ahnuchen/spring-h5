@@ -18,8 +18,13 @@ public class Users implements Serializable {
     private String role;
     private String token;
 
+  public Users(String loginId, String name, String password) {
+    this.loginId = loginId;
+    this.name = name;
+    this.password = password;
+  }
 
-    public String get_id() {
+  public String get_id() {
         return _id.toString();
     }
 
