@@ -2,6 +2,7 @@ package com.ccy.makaserver.controller;
 
 import com.ccy.makaserver.document.Users;
 import com.ccy.makaserver.repository.UsersRepository;
+import com.ccy.makaserver.response.CommonReturnType;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,10 @@ public class UsersController extends BaseController {
   @Autowired
   private UsersRepository usersRepository;
 
-  @RequestMapping("/users")
-  public List<Users> index(HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    Users currentUser = (Users) session.getAttribute("user");
+  @RequestMapping("/userinfo")
+  public CommonReturnType userinfo(HttpServletRequest request) {
+    Users currentUser = (Users) request.getAttribute("user");
     System.out.println(currentUser);
-    List<Users> users = usersRepository.findAll();
-    return users;
+    return CommonReturnType.success(currentUser);
   }
 }

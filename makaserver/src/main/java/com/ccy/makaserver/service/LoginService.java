@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @Service
@@ -48,6 +49,10 @@ public class LoginService {
     }
     String encryptPwd = MD5Utils.calc(password);
     Users users = usersRepository.findByLoginIdAndPassword(loginId, encryptPwd);
+    System.out.println(loginId);
+    System.out.println(encryptPwd);
+    System.out.println(password);
+    System.out.println(users);
     if (users == null) {
       throw new BusinessException(EmBusinessError.NOT_VALID_LOGIN);
     }
@@ -59,8 +64,10 @@ public class LoginService {
     return CommonReturnType.success(userTokenVo);
   }
 
-  public Users findUserByToken(String token) {
-    Users users = usersRepository.findUsersByToken(token);
-    return users;
+  public CommonReturnType logout(HttpServletRequest request) {
+    Users users = (Users) request.getAttribute("user");
+    users.setToken("");
+    usersRepository.save(users);
+    return CommonReturnType.success("用户已退出登录");
   }
 }

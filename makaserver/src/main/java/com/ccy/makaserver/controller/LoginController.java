@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 @RequestMapping("/api")
@@ -28,5 +30,10 @@ public class LoginController extends BaseController {
   @PostMapping("/login")
   public CommonReturnType login(UsersFormData usersFormData) throws BusinessException {
     return loginService.login(usersFormData);
+  }
+
+  @PostMapping("/logout")
+  public CommonReturnType logout(HttpServletRequest request) {
+    return loginService.logout(request);
   }
 }
