@@ -4,10 +4,6 @@ import com.ccy.makaserver.document.Users;
 import com.ccy.makaserver.error.BusinessException;
 import com.ccy.makaserver.error.EmBusinessError;
 import com.ccy.makaserver.repository.UsersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,17 +31,16 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
     System.out.println(requestURI);
     if (requestURI.contains("/api") && !requestURI.contains("/register") && !requestURI.contains("/login")) {
       //说明处在编辑的页面
-//      HttpSession session = request.getSession();
+      HttpSession session = request.getSession();
       String token = request.getHeader("token");
       System.out.println(token);
       if (token == null) {
         throw new BusinessException(EmBusinessError.USER_NEED_LOGIN);
       }
       Users users = usersRepository.findUsersByToken(token);
-      System.out.println("users:");
-      System.out.println(users.getName());
       if (users != null) {
-        request.setAttribute("user", users);
+        session.setAttribute("user", users);
+        session.setAttribute("loginId", users.getLoginId());
         //登陆成功的用户
         return true;
       } else {

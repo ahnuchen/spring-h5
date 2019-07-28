@@ -3,7 +3,9 @@ package com.ccy.makaserver.controller;
 import com.ccy.makaserver.document.Users;
 import com.ccy.makaserver.repository.UsersRepository;
 import com.ccy.makaserver.response.CommonReturnType;
+import com.ccy.makaserver.vo.UserInfoVo;
 import org.bson.types.ObjectId;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +22,10 @@ public class UsersController extends BaseController {
 
   @RequestMapping("/userinfo")
   public CommonReturnType userinfo(HttpServletRequest request) {
-    Users currentUser = (Users) request.getAttribute("user");
-    System.out.println(currentUser);
-    return CommonReturnType.success(currentUser);
+    HttpSession session = request.getSession();
+    Users currentUser = (Users) session.getAttribute("user");
+    UserInfoVo userInfoVo = new UserInfoVo();
+    BeanUtils.copyProperties(currentUser,userInfoVo);
+    return CommonReturnType.success(userInfoVo);
   }
 }
