@@ -1,5 +1,7 @@
 package com.ccy.makaserver.document;
 
+import org.bson.types.ObjectId;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,73 +11,85 @@ import java.time.LocalDateTime;
  * @author
  */
 public class Files implements Serializable {
-    private String fid;
 
-    private Integer themeId;
+  private ObjectId _id;
 
-    private String filePath;
+  private String fid;
 
-    private String fileType;
+  private String themeId;
 
-    private Double width;
+  private String filePath;
 
-    private Double height;
+  private String fileType;
 
-    private Long createDate;
+  private Double width;
 
-    public String getFid() {
-        return fid;
-    }
+  private Double height;
 
-    public void setFid(String fid) {
-        this.fid = fid;
-    }
+  private Long createDate;
 
-    public Integer getThemeId() {
-        return themeId;
-    }
+  public String getFid() {
+    return fid;
+  }
 
-    public void setThemeId(Integer themeId) {
-        this.themeId = themeId;
-    }
+  public void setFid(String fid) {
+    this.fid = fid;
+  }
 
-    public String getFilePath() {
-        return filePath;
-    }
+  public String getThemeId() {
+    return themeId;
+  }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
+  public void setThemeId(String themeId) {
+    this.themeId = themeId;
+  }
 
-    public String getFileType() {
-        return fileType;
-    }
+  public String getFilePath() {
+    return filePath;
+  }
 
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
+  }
 
-    public Double getWidth() {
-        return width;
-    }
+  public String getFileType() {
+    return fileType;
+  }
 
-    public void setWidth(Double width) {
-        this.width = width;
-    }
+  public void setFileType(String fileType) {
+    this.fileType = fileType;
+  }
 
-    public Double getHeight() {
-        return height;
-    }
+  public Double getWidth() {
+    return width;
+  }
 
-    public void setHeight(Double height) {
-        this.height = height;
-    }
+  public void setWidth(Double width) {
+    this.width = width;
+  }
 
-    public Long getCreateDate() {
-        return createDate;
-    }
+  public Double getHeight() {
+    return height;
+  }
 
-    public void setCreateDate(Long createDate) {
-        this.createDate = createDate;
-    }
+  public void setHeight(Double height) {
+    this.height = height;
+  }
+
+  public Long getCreateDate() {
+    return createDate;
+  }
+
+  public void setCreateDate(Long createDate) {
+    this.createDate = createDate;
+  }
+
+  public String get_id() {
+    return _id.toString();
+  }
+
+  public void set_id(ObjectId _id) {
+    this._id = _id;
+  }
+
 }

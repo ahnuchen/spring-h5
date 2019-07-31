@@ -40,7 +40,7 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
       Users users = usersRepository.findUsersByToken(token);
       if (users != null) {
         session.setAttribute("user", users);
-        session.setAttribute("loginId", users.getLoginId());
+        request.setAttribute("loginId", users.getLoginId());
         //登陆成功的用户
         return true;
       } else {

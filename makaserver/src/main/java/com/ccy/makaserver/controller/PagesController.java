@@ -14,12 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-//router.get('/', auth.isAuthenticated(), controller.findByLoginId)
-//  router.get('/:id', auth.isAuthenticated(), controller.show)
-//  router.post('/', auth.isAuthenticated(), controller.create)
-//  router.put('/:id', auth.isAuthenticated(), controller.update)
-//  router.patch('/:id', auth.isAuthenticated(), controller.patch)
-//  router.delete('/:id', auth.isAuthenticated(), controller.destroy)
 @RestController
 @RequestMapping("/api")
 public class PagesController extends BaseController {
@@ -30,24 +24,37 @@ public class PagesController extends BaseController {
   private HttpServletRequest request;
 
   @GetMapping("/pages")
-  private CommonReturnType pages(@RequestParam("type") String type) {
+  public CommonReturnType pages(@RequestParam("type") String type) {
     String loginId = (String) request.getAttribute("loginId");
     List<Pages> pagesList = pagesService.getCurrentUserPage(loginId, type);
     return CommonReturnType.success(pagesList);
   }
 
   @GetMapping("/pages/{id}")
-  private CommonReturnType page(@PathVariable("id") String id) {
+  public CommonReturnType page(@PathVariable("id") String id) {
     String loginId = (String) request.getAttribute("loginId");
     Pages pages = pagesService.getCurrentPage(loginId, id);
     return CommonReturnType.success(pages);
   }
 
-  @PatchMapping("/pages/{id}")
-  private CommonReturnType updatePage(@PathVariable("id") String id,Pages pages) {
+  @PutMapping("/pages/{id}")
+  public CommonReturnType updatePage(@PathVariable("id") String id,Pages pages) {
     String loginId = (String) request.getAttribute("loginId");
-    // todo
-    return CommonReturnType.success("TODO");
+    Pages savedPage =  pagesService.updatePage(id,loginId,pages);
+    return CommonReturnType.success(savedPage);
+  }
+
+  @PostMapping("/pages")
+  public CommonReturnType createPage(Pages pages){
+    Pages p = pagesService.createPage(pages);
+    return CommonReturnType.success(p);
+  }
+
+  @DeleteMapping("/pages/{id}")
+  public CommonReturnType deletePage(@PathVariable("id") String id){
+    String loginId = (String) request.getAttribute("loginId");
+    pagesService.deletePage(id,loginId);
+    return CommonReturnType.success("删除成功");
   }
 
 }
