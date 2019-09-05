@@ -172,12 +172,12 @@ export const playAnimate = ({state, commit, getters}) => {
 }
 
 export const getPicListByThemeId = ({commit}, _id) => {
-  api.getPicListByThemeId(_id).then((res) => {
+  api.getPicListByThemeId(_id).then(({data: res}) => {
     commit(types.FETCH_PIC_LIST, res)
   })
 }
 export const getVideoListByThemeId = ({commit}, _id) => {
-  api.getVideoListByThemeId(_id).then((res) => {
+  api.getVideoListByThemeId(_id).then(({data: res}) => {
     commit(types.FETCH_VIDEO_LIST, res)
   })
 }
@@ -191,7 +191,7 @@ export const sortElementsByZindex = ({commit}, location) => {
 }
 
 export const deleteTheme = ({commit}, theme) => {
-  return Promise.resolve(api.delTheme(theme).then((res) => {
+  return Promise.resolve(api.delTheme(theme).then(({data: res}) => {
     commit(types.DELETE_THEME, theme)
   }))
 }
