@@ -10,7 +10,7 @@ public interface PagesRepository extends MongoRepository<Pages, String> {
 
   public List<Pages> findByLoginIdAndType(String loginId, String type);
 
-  public Pages findBy_idAndLoginId(String loginId,String id);
+  public Pages findBy_idAndLoginId(ObjectId id, String loginId);
 
   public void deleteBy_idAndLoginId(String id,String loginId);
 

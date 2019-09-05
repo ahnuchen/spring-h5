@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Service
@@ -28,6 +29,12 @@ public class LoginService {
 
     if (existsUser) {
       throw new BusinessException(EmBusinessError.LOGIN_ID_EXISTS);
+    }
+    if(users.getName() == null){
+      throw new BusinessException(EmBusinessError.EMPTY_USER_NAME);
+    }
+    if(users.getPassword() == null){
+      throw new BusinessException(EmBusinessError.EMPTY_PASSWORD);
     }
     UserTokenVo userTokenVo = new UserTokenVo();
     String password = MD5Utils.calc(u.getPassword());
@@ -65,7 +72,8 @@ public class LoginService {
   }
 
   public CommonReturnType logout(HttpServletRequest request) {
-    Users users = (Users) request.getAttribute("user");
+    String loginId = (String) request.getAttribute("loginId");
+    Users users = usersRepository.findUsersByLoginId(loginId);
     users.setToken("");
     usersRepository.save(users);
     return CommonReturnType.success("用户已退出登录");

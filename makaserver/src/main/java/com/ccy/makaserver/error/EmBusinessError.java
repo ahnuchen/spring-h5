@@ -9,6 +9,8 @@ public enum EmBusinessError implements CommonError {
   LOGIN_ID_EXISTS(20002,"用户id重复"),
   USER_NEED_LOGIN(20003, "需要登录"),
   NOT_VALID_LOGIN(20004, "用户名或者密码错误"),
+  EMPTY_USER_NAME(20005,"用户名不能为空"),
+  EMPTY_PASSWORD(20006,"密码不能为空"),
 
 //  登陆相关
 

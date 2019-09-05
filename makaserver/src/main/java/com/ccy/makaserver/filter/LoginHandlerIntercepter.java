@@ -29,13 +29,21 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
     String requestURI = request.getRequestURI();
     System.out.println("---------------------------");
     System.out.println(requestURI);
-    if (requestURI.contains("/api") && !requestURI.contains("/register") && !requestURI.contains("/login")) {
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,token,Authorization");
+    response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
+    if(request.getMethod().toLowerCase().equals("options")){
+      response.setStatus(204);
+      return true;
+    }
+    if ((requestURI.contains("/api") || requestURI.contains("/auth")) && !requestURI.contains("/register") && !requestURI.contains("/login")) {
       //说明处在编辑的页面
       HttpSession session = request.getSession();
       String token = request.getHeader("token");
       System.out.println(token);
       if (token == null) {
-        throw new BusinessException(EmBusinessError.USER_NEED_LOGIN);
+        response.setStatus(401);
+        return false;
       }
       Users users = usersRepository.findUsersByToken(token);
       if (users != null) {
@@ -44,8 +52,8 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
         //登陆成功的用户
         return true;
       } else {
-        //没有登陆，转向登陆界面
-        throw new BusinessException(EmBusinessError.USER_NEED_LOGIN);
+        response.setStatus(401);
+        return false;
       }
     } else {
       return true;

@@ -6,34 +6,33 @@ import com.ccy.makaserver.formdata.UsersFormData;
 import com.ccy.makaserver.response.CommonReturnType;
 import com.ccy.makaserver.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/auth")
 
 public class LoginController extends BaseController {
   @Autowired
   private LoginService loginService;
 
+  @Autowired
+  private HttpServletRequest request;
 
   @PostMapping("/register")
-  public CommonReturnType register(UsersFormData usersFormData) throws BusinessException {
+  public CommonReturnType register(@RequestBody UsersFormData usersFormData) throws BusinessException {
     return loginService.register(usersFormData);
   }
 
   @PostMapping("/login")
-  public CommonReturnType login(UsersFormData usersFormData) throws BusinessException {
+  public CommonReturnType login(@RequestBody UsersFormData usersFormData) throws BusinessException {
     return loginService.login(usersFormData);
   }
 
-  @PostMapping("/logout")
-  public CommonReturnType logout(HttpServletRequest request) {
+  @GetMapping("/logout")
+  public CommonReturnType logout() throws BusinessException{
     return loginService.logout(request);
   }
 }

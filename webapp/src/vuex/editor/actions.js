@@ -26,7 +26,7 @@ export const saveTheme = ({commit}, theme) => {
  */
 export const getUserThemeList = ({commit}, type) => {
   api.getUserThemeList(type).then((res) => {
-    commit(types.GET_USER_THEME_LIST, res)
+    commit(types.GET_USER_THEME_LIST, res.data)
   })
 }
 
@@ -134,7 +134,7 @@ export const delPage = ({commit}, page) => {
 }
 
 export const getPageByThemeId = ({dispatch, commit}, id) => {
-  api.getPageByThemeId(id).then((res) => {
+  api.getPageByThemeId(id).then(({data: res}) => {
     commit(types.SET_CUR_EDITOR_THEME, res)
     commit(types.SET_CUR_EDITOR_PAGE, res.pages[0])
   }).then(() => {

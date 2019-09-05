@@ -4,6 +4,7 @@ package com.ccy.makaserver.service;
 import com.ccy.makaserver.document.Pages;
 import com.ccy.makaserver.repository.PagesRepository;
 import com.ccy.makaserver.response.CommonReturnType;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,12 @@ public class PagesService {
   }
 
   public Pages getCurrentPage(String loginId, String id) {
-    Pages pages = pagesRepository.findBy_idAndLoginId(loginId, id);
+    Pages pages = pagesRepository.findBy_idAndLoginId(new ObjectId(id), loginId);
     return pages;
   }
 
   public Pages updatePage(String id, String loginId, Pages page) {
-    Pages currentPage = pagesRepository.findBy_idAndLoginId(id, loginId);
+    Pages currentPage = pagesRepository.findBy_idAndLoginId(new ObjectId(id), loginId);
     Pages savedPage = new Pages();
     if(currentPage != null){
        savedPage = pagesRepository.save(page);
