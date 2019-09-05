@@ -52,7 +52,7 @@ export default {
             img.onload = () => {
               formData.append('width', img.width)
               formData.append('height', img.height)
-              http.post('/api/upload', formData).then(res => {
+              http.post('/api/upload', formData).then(({data: res}) => {
                 this.$emit('uploaded', {
                   filePath: res.filePath,
                   width: img.width,

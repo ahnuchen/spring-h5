@@ -40,7 +40,7 @@ public class PagesController extends BaseController {
   }
 
   @PutMapping("/pages/{id}")
-  public CommonReturnType updatePage(@PathVariable("id") String id,Pages pages) {
+  public CommonReturnType updatePage(@PathVariable("id") String id,@RequestBody Pages pages) {
     String loginId = (String) request.getAttribute("loginId");
     Pages savedPage =  pagesService.updatePage(id,loginId,pages);
     return CommonReturnType.success(savedPage);

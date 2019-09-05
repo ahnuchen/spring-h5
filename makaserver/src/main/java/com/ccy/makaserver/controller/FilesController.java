@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -27,6 +28,9 @@ public class FilesController extends BaseController {
   @Autowired
   private FilesRepository filesRepository;
 
+  @Autowired
+  private HttpServletRequest request;
+
   @RequestMapping("/files")
   public List<Files> files() {
     List<Files> files = filesRepository.findAll();
@@ -35,7 +39,7 @@ public class FilesController extends BaseController {
 
   @PostMapping("/upload")
   public CommonReturnType uploadFile(UploadFileFormData formData) throws IOException {
-    String serverpath = ResourceUtils.getURL("classpath:static").getPath();
+    String serverpath = request.getServletContext().getRealPath("/");
     Files files = new Files();
     MultipartFile file = formData.getImage();
     byte[] bytes = file.getBytes();
