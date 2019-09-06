@@ -48,6 +48,8 @@ public class PagesController extends BaseController {
 
   @PostMapping("/pages")
   public CommonReturnType createPage(@RequestBody Pages pages){
+    String loginId = (String) request.getAttribute("loginId");
+    pages.setLoginId(loginId);
     Pages p = pagesService.createPage(pages);
     return CommonReturnType.success(p);
   }

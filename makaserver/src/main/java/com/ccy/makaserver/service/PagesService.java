@@ -42,4 +42,9 @@ public class PagesService {
   public void deletePage (String id,String loginId){
     pagesRepository.deleteBy_idAndLoginId(id, loginId);
   }
+
+
+  private void renderFile (Pages page){
+
+  }
 }

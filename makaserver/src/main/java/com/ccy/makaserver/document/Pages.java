@@ -93,4 +93,8 @@ public class Pages implements Serializable {
     public void setCreateDate(Double createDate) {
         this.createDate = createDate;
     }
+
+  public void setLoginId(String loginId) {
+    this.loginId = loginId;
+  }
 }
