@@ -10,11 +10,11 @@ import tools from '../../util/tools'
  */
 export const saveTheme = ({commit}, theme) => {
   if (theme && theme._id) {
-    return Promise.resolve(api.updateTheme(theme).then((res) => {
+    return Promise.resolve(api.updateTheme(theme).then(({data: res}) => {
       commit(types.UPDATE_THEME_SUCCESS, res)
     }))
   } else {
-    return Promise.resolve(api.saveTheme(theme).then((res) => {
+    return Promise.resolve(api.saveTheme(theme).then(({data: res}) => {
       commit(types.ADD_THEME_SUCCESS, res)
     }))
   }

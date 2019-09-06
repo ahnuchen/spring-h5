@@ -36,7 +36,7 @@ public class Pages implements Serializable {
 
     private String loginId;
 
-    private Double createDate;
+    private Long createDate;
 
     private List<Object> pages;
 
@@ -86,11 +86,11 @@ public class Pages implements Serializable {
         this._id = _id;
     }
 
-    public Double getCreateDate() {
+    public Long getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Double createDate) {
+    public void setCreateDate(Long createDate) {
         this.createDate = createDate;
     }
 

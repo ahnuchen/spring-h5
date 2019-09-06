@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class PagesController extends BaseController {
   }
 
   @PutMapping("/pages/{id}")
-  public CommonReturnType updatePage(@PathVariable("id") String id,@RequestBody Pages pages) {
+  public CommonReturnType updatePage(@PathVariable("id") String id,@RequestBody Pages pages) throws IOException {
     String loginId = (String) request.getAttribute("loginId");
     Pages savedPage =  pagesService.updatePage(id,loginId,pages);
     return CommonReturnType.success(savedPage);
@@ -50,6 +51,7 @@ public class PagesController extends BaseController {
   public CommonReturnType createPage(@RequestBody Pages pages){
     String loginId = (String) request.getAttribute("loginId");
     pages.setLoginId(loginId);
+    pages.setCreateDate(System.currentTimeMillis());
     Pages p = pagesService.createPage(pages);
     return CommonReturnType.success(p);
   }
