@@ -4,6 +4,7 @@ package com.ccy.makaserver.service;
 import com.ccy.makaserver.document.Pages;
 import com.ccy.makaserver.repository.PagesRepository;
 import com.ccy.makaserver.response.CommonReturnType;
+import com.ccy.makaserver.utils.TemplateUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,36 +66,16 @@ public class PagesService {
 
 
   private void renderFile(Pages page) {
-    ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-    resolver.setPrefix("templates/");  //模板文件的所在目录
-    resolver.setSuffix(".html");       //模板文件后缀
-    resolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
-    resolver.setTemplateMode(TemplateMode.HTML);
-    //创建模板引擎
-    TemplateEngine templateEngine = new TemplateEngine();
-    //将加载器放入模板引擎
-    templateEngine.setTemplateResolver(resolver);
     //创建字符输出流并且自定义输出文件的位置和文件名
     String serverpath = request.getServletContext().getRealPath("/");
     Path path = Paths.get(serverpath, "pages", "basic.html");
     String htmlFilePath = path.toString();
-    try {
-      FileWriter writer = new FileWriter(htmlFilePath);
-      //创建Context对象(存放Model)
-      Context context = new Context();
-      //放入数据
-      context.setVariable("hello", page.getTitle());
-      //创建静态文件,"text"是模板html名字
-      try{
-        templateEngine.process("basic.html", context, writer);
-        String html = templateEngine.process("basic", context);
-      }catch (Exception e){
-        System.out.println("获取模板异常");
-        System.out.println(e.toString());
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
+    //创建Context对象(存放Model)
+    Context context = new Context();
+    //放入数据
+    context.setVariable("hello", page.getTitle());
+    System.out.println("htmlFilePath");
+    System.out.println(htmlFilePath);
+    TemplateUtils.process("basic",context,htmlFilePath);
   }
 }

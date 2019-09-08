@@ -5,6 +5,7 @@ import com.ccy.makaserver.error.BusinessException;
 import com.ccy.makaserver.error.EmBusinessError;
 import com.ccy.makaserver.response.CommonReturnType;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 public class BaseController {
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.OK)

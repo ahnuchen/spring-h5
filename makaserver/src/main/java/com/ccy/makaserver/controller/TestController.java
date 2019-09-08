@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/test")
@@ -31,4 +33,13 @@ public class TestController extends BaseController {
     System.out.println(str);
     return mv;
   }
+
+
+  @RequestMapping("/home")
+  public String index(Model model) {
+    Users single = new Users("chenchangyu","陈长裕","1234565");
+    model.addAttribute("singlePerson", single);
+    return "index";
+  }
+
 }
