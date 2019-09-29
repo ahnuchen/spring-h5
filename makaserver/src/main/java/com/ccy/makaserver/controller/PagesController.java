@@ -27,8 +27,6 @@ public class PagesController extends BaseController {
   @GetMapping("/pages")
   public CommonReturnType pages(@RequestParam("type") String type) {
     String loginId = (String) request.getAttribute("loginId");
-    System.out.println("loginId是什么");
-    System.out.println(loginId);
     List<Pages> pagesList = pagesService.getCurrentUserPage(loginId, type);
     return CommonReturnType.success(pagesList);
   }

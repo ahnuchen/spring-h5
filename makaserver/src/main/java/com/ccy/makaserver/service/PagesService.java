@@ -68,14 +68,16 @@ public class PagesService {
   private void renderFile(Pages page) {
     //创建字符输出流并且自定义输出文件的位置和文件名
     String serverpath = request.getServletContext().getRealPath("/");
-    Path path = Paths.get(serverpath, "pages", "basic.html");
+    Path path = Paths.get(serverpath, "pages", "spa.html");
     String htmlFilePath = path.toString();
     //创建Context对象(存放Model)
     Context context = new Context();
     //放入数据
-    context.setVariable("hello", page.getTitle());
+    context.setVariable("title", page.getTitle());
+    context.setVariable("pages", page.getPages());
+
     System.out.println("htmlFilePath");
     System.out.println(htmlFilePath);
-    TemplateUtils.process("basic",context,htmlFilePath);
+    TemplateUtils.process("spa",context,htmlFilePath);
   }
 }
