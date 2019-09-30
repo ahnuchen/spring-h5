@@ -10,11 +10,11 @@ import tools from '../../util/tools'
  */
 export const saveTheme = ({commit}, theme) => {
   if (theme && theme._id) {
-    return Promise.resolve(api.updateTheme(theme).then((res) => {
+    return Promise.resolve(api.updateTheme(theme).then(({data: res}) => {
       commit(types.UPDATE_THEME_SUCCESS, res)
     }))
   } else {
-    return Promise.resolve(api.saveTheme(theme).then((res) => {
+    return Promise.resolve(api.saveTheme(theme).then(({data: res}) => {
       commit(types.ADD_THEME_SUCCESS, res)
     }))
   }
@@ -26,7 +26,7 @@ export const saveTheme = ({commit}, theme) => {
  */
 export const getUserThemeList = ({commit}, type) => {
   api.getUserThemeList(type).then((res) => {
-    commit(types.GET_USER_THEME_LIST, res)
+    commit(types.GET_USER_THEME_LIST, res.data)
   })
 }
 
@@ -134,7 +134,7 @@ export const delPage = ({commit}, page) => {
 }
 
 export const getPageByThemeId = ({dispatch, commit}, id) => {
-  api.getPageByThemeId(id).then((res) => {
+  api.getPageByThemeId(id).then(({data: res}) => {
     commit(types.SET_CUR_EDITOR_THEME, res)
     commit(types.SET_CUR_EDITOR_PAGE, res.pages[0])
   }).then(() => {
@@ -172,12 +172,12 @@ export const playAnimate = ({state, commit, getters}) => {
 }
 
 export const getPicListByThemeId = ({commit}, _id) => {
-  api.getPicListByThemeId(_id).then((res) => {
+  api.getPicListByThemeId(_id).then(({data: res}) => {
     commit(types.FETCH_PIC_LIST, res)
   })
 }
 export const getVideoListByThemeId = ({commit}, _id) => {
-  api.getVideoListByThemeId(_id).then((res) => {
+  api.getVideoListByThemeId(_id).then(({data: res}) => {
     commit(types.FETCH_VIDEO_LIST, res)
   })
 }
@@ -191,8 +191,7 @@ export const sortElementsByZindex = ({commit}, location) => {
 }
 
 export const deleteTheme = ({commit}, theme) => {
-  return Promise.resolve(api.delTheme(theme).then((res) => {
+  return Promise.resolve(api.delTheme(theme).then(({data: res}) => {
     commit(types.DELETE_THEME, theme)
   }))
 }
-

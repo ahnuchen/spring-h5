@@ -3,8 +3,22 @@ import app from '../../util/appConst'
 import Element from '../../model/Element'
 
 const mutations = {
-  [types.SET_CUR_EDITOR_ELEMENT] (state, data) {
+  [types.SET_CUR_EDITOR_ELEMENT] (state, data = {}) {
+    let canvasHeight = state.editorTheme.canvasHeight || 504;
+    state.editorPage.elements.forEach((item = {}) => {
+      let height = (item.height || 0) + (item.top || 0)
+      if(height > canvasHeight ){
+        canvasHeight = height
+      }
+    })
+    let eleHeight = (data.height || 0)  + (data.top || 0)
+    if( eleHeight > canvasHeight){
+      canvasHeight = eleHeight
+    }
     state.editorElement = data
+    let editorTheme = {...state.editorTheme}
+    editorTheme.canvasHeight = canvasHeight
+    state.editorTheme = editorTheme
   },
   [types.ADD_PIC_ELEMENT] (state, data) {
     state.editorPage.elements.push(new Element(data))
@@ -152,6 +166,9 @@ const mutations = {
     state.editorPage.elements.forEach((v, i, arr) => {
       arr[i]['zindex'] = i + 1
     })
+  },
+  [types.SET_CANVAS_HEIGHT] (state, canvasHeight){
+    state.editorTheme.canvasHeight = canvasHeight;
   }
 }
 export default mutations

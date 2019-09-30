@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import ElementUI from 'element-ui'
 import App from './App'
+import createLogger from 'vuex/dist/logger'
 
 // 插件配置
 import RouterConfig from './routers'
@@ -23,7 +24,7 @@ import './style/main.css'
 /* eslint-disable no-new */
 new Vue({
   router: new VueRouter({ routes: RouterConfig }),
-  store: new Vuex.Store(Store),
+  store: new Vuex.Store({...Store, plugins: [createLogger()]}),
   el: '#app',
   render: h => h(App)
 })

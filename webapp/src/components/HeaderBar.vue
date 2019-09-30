@@ -34,10 +34,6 @@ export default {
         path: 'spaList',
         name: '单页作品',
         active: false
-      }, {
-        path: 'about',
-        name: '开源声明',
-        active: false
       }
       ],
       loginId: window.localStorage.getItem('loginId')

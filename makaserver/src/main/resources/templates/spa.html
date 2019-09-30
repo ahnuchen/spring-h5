@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}"></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <!-- build:css css/vendor.css -->
+  <link rel="stylesheet" href="/css/main.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+<div id="wx_pic"><img src=""></div>
+<div class="content-container">
+  <th:block th:each="page:${pages}">
+    <th:block th:each="element:${page.elements}">
+      <img th:if="${element.type == 'bg'}" style="width: 100%;" th:src="${element.imgSrc}" alt="">
+    </th:block>
+    <div class="resize-container mediate flat">
+      <section>
+        <th:block th:each="element:${page.elements}">
+          <div th:if="${element.type == 'pic'}" class="ele"
+               th:style="${'z-index:'+element.zindex+';'+'width:'+(element.width/3.2)+'vw;height:'+(element.height/3.2)+'vw;left:'+(element.left/3.2)+'vw;'+'top:'+(element.top/3.2)+'vw;'}">
+            <div>
+              <a th:href="'http://'+${element.href}" target="_blank" th:if="${element.href}">
+                <img th:src="${element.imgSrc}" class="ele-img"
+                     th:style="${ 'opacity:' + element.opacity+';transform:rotate('+element.transform+'deg);'}"/>
+              </a>
+              <img th:src="${element.imgSrc}" class="ele-img"
+                   th:style="${'opacity:' + element.opacity + ';transform:rotate(' + element.transform + 'deg);'}"/>
+            </div>
+          </div>
+          <div class="ele" th:if="${element.type == 'text'}"
+               th:style="${'z-index:'+element.zindex+';width:'+(element.width/3.2)+'vw;height:'+(element.height/3.2)+'vw;left:'+(element.left/3.2)+'vw;top:'+(element.top/3.2)+'vw;'}">
+            <div>
+              <div
+                th:style="${'opacity:'+element.opacity+';transform:rotate('+element.transform+'deg);color:'+element.color+'; text-align:'+ element.textAlign +'; line-height:'+ element.lineHeight +'; font-family:'+ element.fontFamily+';font-size:'+ (element.fontSize/3.2)+ 'vw; white-space: pre-line;font-weight:'+ (element.fontWeight==''?'normal': element.fontWeight)}"><a th:if="${element.href}" th:href="${'http://' + element.href}"
+                   th:style="${'color:'+element.color+';'}"
+                   target="_blank"
+                   th:text="${element.text}"></a><th:block th:text="${element.text}" th:if="${element.href == null}"></th:block>
+              </div>
+            </div>
+          </div>
+        </th:block>
+      </section>
+    </div>
+  </th:block>
+</div>
+<!-- build:js scripts/vendor.js -->
+<!-- endbuild -->
+</body>
+
+</html>
