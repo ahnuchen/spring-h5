@@ -4,7 +4,7 @@
     <section class="section">
       <Overview class="overview" />
       <div class="canvas-wrap" id="canvas-wrap">
-        <Page :elements="editorPage.elements" :editorElement="element" :selectedElement="selectedElement" :style="{ width: canvasWidth + 'px', height: canvasHeight + 'px' }" />
+        <Page :elements="editorPage.elements" :editorElement="element" :selectedElement="selectedElement" :style="{ width: canvasWidth + 'px', height: $store.state.editor.editorTheme.canvasHeight + 'px' }" />
         <!--<div class="tool-bar" :style="{top: parseInt(canvasHeight) + 35 + 'px'}">在右侧设置界面调整页面高度</div>-->
       </div>
       <div class="control-panel">
@@ -74,7 +74,6 @@
         itemId: null,
         panelState: 0,
         canvasWidth: 320,
-        canvasHeight: 504,
         dialogSaveBeforeBack: false,
         picBase64: '',
         http: appConst.BACKEND_DOMAIN,
@@ -134,7 +133,7 @@
           'height': data['height']
         })
       },
-      addPicElement (ele) {
+      addPicElement (ele = {}) {
         // if (ele) {
         let obj = {}
         obj.type = 'pic'

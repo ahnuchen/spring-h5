@@ -16,31 +16,29 @@
       <img th:if="${element.type == 'bg'}" style="width: 100%;" th:src="${element.imgSrc}" alt="">
     </th:block>
     <div class="resize-container mediate flat">
-      <section style="height: 540px;">
+      <section>
         <th:block th:each="element:${page.elements}">
           <div th:if="${element.type == 'pic'}" class="ele"
-               th:style="'z-index:'+${element.zindex}+';'+'width:'+${element.width}+'px;'+'height:'+${element.height}+'px;'+'left:'+${element.left}+'px;'+'top:'+${element.top}+'px;'">
+               th:style="${'z-index:'+element.zindex+';'+'width:'+(element.width/3.2)+'vw;height:'+(element.height/3.2)+'vw;left:'+(element.left/3.2)+'vw;'+'top:'+(element.top/3.2)+'vw;'}">
             <div>
               <a th:href="'http://'+${element.href}" target="_blank" th:if="${element.href}">
                 <img th:src="${element.imgSrc}" class="ele-img"
-                     th:style="'opacity:'+${element.opacity}+';transform:rotate('+${element.transform}+'deg);'"/>
+                     th:style="${ 'opacity:' + element.opacity+';transform:rotate('+element.transform+'deg);'}"/>
               </a>
               <img th:src="${element.imgSrc}" class="ele-img"
-                   th:style="'opacity:'+${element.opacity}+';transform:rotate('+${element.transform}+'deg);'"/>
+                   th:style="${'opacity:' + element.opacity + ';transform:rotate(' + element.transform + 'deg);'}"/>
             </div>
           </div>
-          <div class="ele" th:if="element.type == 'text'"
-               th:style="'z-index:'+${element.zindex}+';'+'width:'+${element.width}+'px;'+'height:'+${element.height}+'px;'+'left:'+${element.left}+'px;'+'top:'+${element.top}+'px;'">
+          <div class="ele" th:if="${element.type == 'text'}"
+               th:style="${'z-index:'+element.zindex+';width:'+(element.width/3.2)+'vw;height:'+(element.height/3.2)+'vw;left:'+(element.left/3.2)+'vw;top:'+(element.top/3.2)+'vw;'}">
             <div>
               <div
-                th:style="'opacity:'+${element.opacity}+';transform:rotate('+${element.transform}+'deg);color:' ${element.color}+'; text-align:'+ ${element.textAlign} +'; line-height:'+ ${element.lineHeight} +'; font-family:'+ ${element.fontFamily}+';font-size:'+ ${element.fontSize}+ 'px; white-space: pre-line;font-weight:'+ ${element.fontWeight==''?'normal': element.fontWeight}">
-                <a th:if="${element.href}" th:href="'http://' + ${element.href}" th:style="'color:'+${element.color}+';'"
+                th:style="${'opacity:'+element.opacity+';transform:rotate('+element.transform+'deg);color:'+element.color+'; text-align:'+ element.textAlign +'; line-height:'+ element.lineHeight +'; font-family:'+ element.fontFamily+';font-size:'+ (element.fontSize/3.2)+ 'vw; white-space: pre-line;font-weight:'+ (element.fontWeight==''?'normal': element.fontWeight)}"><a th:if="${element.href}" th:href="${'http://' + element.href}"
+                   th:style="${'color:'+element.color+';'}"
                    target="_blank"
-                   th:text="${element.text}"></a>
-                <th:block th:text="${element.text}"></th:block>
+                   th:text="${element.text}"></a><th:block th:text="${element.text}" th:if="${element.href == null}"></th:block>
               </div>
             </div>
-
           </div>
         </th:block>
       </section>
@@ -48,33 +46,6 @@
   </th:block>
 </div>
 <!-- build:js scripts/vendor.js -->
-<script>
-  (function () {
-    var designW = 320
-    var designH = 508
-    var designR = designW / designH
-
-    var actualW = document.documentElement.clientWidth
-    var actualH = document.documentElement.clientHeight
-    var actualR = actualW / actualH
-
-    var scale = (actualR > designR) ? (actualH / designH) : (actualW / designW)
-    var style = 'width: ' + designW + 'px;overflow: auto; -webkit-transform: scale(' + scale + '); transform: scale(' + scale + '); '
-    if (actualW < designW) {
-      if (actualR > designR) {
-        style += 'margin-left: ' + (actualW - designW) / 2 + 'px;'
-      } else {
-        style += '-webkit-transform-origin: left; transform-origin: left;'
-      }
-    }
-
-    var containers = document.getElementsByClassName('resize-container')
-    var i
-    for (i = 0; i < containers.length; i++) {
-      containers[i].setAttribute('style', style)
-    }
-  })()
-</script>
 <!-- endbuild -->
 </body>
 

@@ -195,4 +195,3 @@ export const deleteTheme = ({commit}, theme) => {
     commit(types.DELETE_THEME, theme)
   }))
 }
-
