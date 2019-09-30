@@ -3,7 +3,7 @@
 ### 技术架构
 > 前端：vue2.0 + vue-router + vuex + axios + Element ui
 
-> 后端：spring-boot + mongoose
+> 后端：spring-boot + mongodb
 
 
 
