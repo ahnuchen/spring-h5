@@ -19,6 +19,6 @@
 
 > npm run webapp // 启动前端工程
 
-> npm run local //  启动后端工程
+利用idea打包启动后端项目
 
 
